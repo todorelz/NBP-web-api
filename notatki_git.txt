@@ -1,0 +1,38 @@
+https://api.nbp.pl/
+
+Zadanie domowe
+#1. dla dziesiejszego dnia weź wszystkie kursy walut w formacie lista tupli, gdzie kod waluty, wartość kursu
+#2 napisz funkcje do konwersji waluty gdzie argumentym wejściowym jest wartość w zlotówkach a zwracana kwota w odpowiedniej walucie
+# niezbędna walidacja, typowanie zmiennych i wartości zwracanej
+# obsłóż syatuacje, gdy dana waluta nie istnieje (sprawdź wszystkie kody walut, uwzględnij wielkość liter)
+# 3. ceny złota z ostatnich 30dni https://api.nbp.pl/api/cenyzlota/last/30/?format=json
+# narysuj wykres przedstawiający wykres liniowy wartość ceny złota w okresie,
+# użyj biblioteki matplotlib
+
+Kroki 
+
+reopzytorium lokalne git
+1. wchodzę do dodelowego katalogu i tworzę lokalne repozytorium: np
+    $ git init
+2. tworzę plik .gitignore, w którym wpisuję nazy plików i katalogów, ktorych nie chę śledzić:
+    na pewno folderu ze środowiskiem wirtualnym, wszytskie inne pliki, którymi się nie chcę 
+    dzielic a są potrzebne mi w projekcie (np notatki)
+3. sprawdzanie statusu:
+    git statusu
+4. dodanie zmian do staging area 
+    git add [nazwa pliku]
+    dodanie wszystkich:
+    git add .
+5. zakomitowanie zmian  
+    git commit -m "jakaś wiadomość"
+6. tworzę zdalne repozytorium na github
+7. podpięcie zdalnego repo do lokalnego
+    git remote add origin ....... #skopiowane z github , pamiętać o ssh np:
+    git remote add origin git@github.com:todorelz/NBP-web-api.git
+8. wypchnięcie zmian/commitów (push) do repozytorium zdlanego
+    git push origin master
+
+
+Actywacja środowiska w powershell:
+PS C:\Users\naszd\PY_Konsultacje\mini-projekty\nbp_web_api> & C:\Users\naszd\PY_Konsultacje\mini-projekty\nbp_web_api\env_nbp\Scripts\Activate.ps1
+jakiś problem security u mnie, tylko cmd
