@@ -1,2 +1,5 @@
 notatki.txt 
 env_nbp/
+__pycache__
+*.txt
+*.ipynb

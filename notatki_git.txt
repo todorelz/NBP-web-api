@@ -36,3 +36,28 @@ reopzytorium lokalne git
 Actywacja środowiska w powershell:
 PS C:\Users\naszd\PY_Konsultacje\mini-projekty\nbp_web_api> & C:\Users\naszd\PY_Konsultacje\mini-projekty\nbp_web_api\env_nbp\Scripts\Activate.ps1
 jakiś problem security u mnie, tylko cmd
+
+
+TWORZENIE WŁASNEGO MODUŁU W PYTHONIE
+1. w projkecie utwórz folder (np "utils")
+2. w tym folderze dodajesz plik: "__init__.py"
+3. dodaj srypt pythonowy w którym będą zdefiniowane funkcje (np "exchanege_rates.py")
+    skrypt Python, w którym zapsuję funkcje to MODUŁ i ZAWSZE musi być rozszerzenie .py (nie może być ipynb)
+    importy: 
+        - .py --> .py
+        - .py --> .ipynb
+4. importuję potrzebną funkcje z pliku z funkcjami np:
+    from exchanege_rates import get_latest_exchanege_rate
+    jeżeli importuję z pliku na tym samym poziomie przed nazwą pliku trzeba podać "." np
+    będąc w exchanege_rates.py napiszę:
+    from .consts import SUPPORTED_CURRENCY_CODES
+
+napisz funkcje:
+1. do pobrania pojedyńczej walty z dolonego dnia
+2. do pobrania pojedyńczej waluty z przedziału od:do
+3. do pobrania całej tabeli walut z danego dnia
+4. do pobrania całej tabeli walut z przedziału od:do
+
+całość obsłużyć błędy (walidacja), obsłużyć daty przyszłe i weekendy
+
+wrócić do zadania z zapisywaniem do plików
