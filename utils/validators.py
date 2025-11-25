@@ -11,12 +11,19 @@ def _validate_table(table: Literal['A','C'], allowed_table: list[str]) -> None:
       if table.upper() not in allowed_table:
             raise Exception(f'{table} - nieobsługiwana tabela')
       
-def _validate_weekday(date: date) -> None:
-    if date.weekday() in (5,6):
-        raise Exception(f'{date} - weekendy nie posiadają kursów')
+def _validate_weekday(*dates: date) -> None:
+    for date in dates:
+        if date.weekday() in (5,6):
+            raise Exception(f'{date} - weekendy nie posiadają kursów')
     
 def _validate_date_format(date_str: str) -> date | None: 
     try:
         return datetime.strptime(date_str, "%Y-%m-%d")
     except Exception:
         print(f'{date_str}- data złego formatu')
+
+def _validate_is_future (date: date) -> date | None:
+     if datetime.today() > date:
+          return date
+     else:
+          return datetime.today()
