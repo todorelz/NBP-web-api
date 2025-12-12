@@ -129,9 +129,42 @@ def get_exchange_rate_for_requested_day(table: Literal["A","B","C"],
         return get_currency_rates(data)
 
 
-
-
 # 4. do pobrania całej tabeli walut z przedziału od:do
+def get_exchange_rate_table_for_requested_days_period(table: Literal["A","C"],
+                                    start_date: str,
+                                    end_date: str)-> list[dict] | None:
+    """Funkcja generująca tabelę kursy dla wybranego przedziału czasowego od:do
+
+    Args:
+        table (Literal[&#39;A&#39;,&#39;C&#39;]): tabela do wybrania: "A", lub "C"; Tabela A kursów średnich walut obcych,
+        Tabela C kursów kupna i sprzedaży walut obcych
+        start_date (str): data początkowa wybranego okresu w formacie RRRR-MM-DD (standard ISO 8601), dane dostępne tylko dla dni powszednich
+        end_date (str): data końcowa wybranego okresu w formacie RRRR-MM-DD (standard ISO 8601), dane dostępne tylko dla dni powszednich
+
+    Raises:
+        Exception: wyjątki podnoszone,gdy parametry zapytania są niezgodne z wymaganym formatem lub, 
+        gdy przedział czasowy jest nieprawdiłowo skonstrowany; dane dostępne tylko dla dni powszednich. 
+        Start_date musi być wszcześniejszy niż end_date
+
+    Returns:
+        list[dict] | None: zwraca kursy dla wybranego przedziału czasowego
+    """
+    _validate_table(table,['A','C'])
+    start_date_dateformat, end_date_dateformat = _validate_date_format(start_date), _validate_date_format(end_date)
+    
+    if (None in (start_date_dateformat, end_date_dateformat)) or end_date_dateformat < start_date_dateformat:
+        raise Exception(f'data końca przedziału {end_date} nie może być młodsza niż data poczatku przedziału ')
+    
+    _validate_weekday(start_date_dateformat,end_date_dateformat)
+    end_date_dateformat =_validate_is_future(end_date_dateformat)
+    
+    end_date = datetime.strftime(end_date_dateformat,('%Y-%m-%d'))
+    response = requests.get(f'{BASE_URL_EXCHANGE_RATES}/tables/{table}/{start_date}/{end_date}/')
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        print("Brak danych")
 
 # całość obsłużyć błędy (walidacja), obsłużyć daty przyszłe i weekendy
 

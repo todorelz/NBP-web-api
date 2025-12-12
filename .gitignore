@@ -1,5 +1,4 @@
-notatki.txt 
+notatki_git.txt 
 env_nbp/
 __pycache__
-*.txt
 *.ipynb
