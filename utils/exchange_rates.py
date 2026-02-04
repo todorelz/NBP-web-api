@@ -4,6 +4,8 @@ from .consts import SUPPORTED_CURRENCY_CODES, BASE_URL_EXCHANGE_RATES
 from datetime import datetime, date
 from .validators import _validate_currency_code,_validate_table, _validate_weekday,_validate_date_format,_validate_is_future
 from .extractions import get_currency_rates
+from .general import filter_rates
+from .schemas import ExchangeRates
 
 def get_latest_exchange_rate_data(table: Literal["A","B","C"]) -> list[dict] | None:
     """Funkcja generująca aktualnie obowiązująca tabela kursów
@@ -19,8 +21,8 @@ Tabela B kursów średnich walut obcych, Tabela C kursów kupna i sprzedaży wal
     base_url=f'{BASE_URL_EXCHANGE_RATES}/tables/{table}/'
     response = requests.get(base_url)
     if response.status_code == 200:
-        data = response.json()
-        return get_currency_rates(data)
+        data = filter_rates(response.json()[0])
+        return ExchangeRates(**data)
     
     
 def get_latest_exchanege_rate_single_curency(table: Literal['A','C'], 
@@ -166,7 +168,7 @@ def get_exchange_rate_table_for_requested_days_period(table: Literal["A","C"],
     else:
         print("Brak danych")
 
-# całość obsłużyć błędy (walidacja), obsłużyć daty przyszłe i weekendy
+# parsować ze wszystkich funkcji do pydentica
 
 
 # do zakresów dodać wykresy
