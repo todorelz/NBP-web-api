@@ -9,3 +9,5 @@ SUPPORTED_CURRENCY_CODES: list[str] = [
     'CZK'
 ]
 BASE_URL_EXCHANGE_RATES = "https://api.nbp.pl/api/exchangerates"
+
+BASE_URL_GOLD_PRICES = "https://api.nbp.pl/api/cenyzlota"

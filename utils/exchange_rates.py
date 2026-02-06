@@ -44,7 +44,7 @@ Tabela B kursów średnich walut obcych, Tabela C kursów kupna i sprzedaży wal
         return response.json()
     
 
-def get_exchange_rate_for_requested_day(table: Literal['A','C'],
+def get_exchange_rate_for_currency_for_requested_day(table: Literal['A','C'],
                                        code: Literal[SUPPORTED_CURRENCY_CODES],
                                        date: str)-> dict | None:
     """Funkcja generująca kurs dla wybranej walty dla danego dnia
@@ -67,8 +67,6 @@ Tabela B kursów średnich walut obcych, Tabela C kursów kupna i sprzedaży wal
         return response.json()
     else:
         print('Brak danych')
-
-#     napisz funkcje:
 
 # 2. do pobrania pojedyńczej waluty z przedziału od:do
 def get_exchange_rate_for_requested_days_period(table: Literal['A','C'],
@@ -110,7 +108,6 @@ def get_exchange_rate_for_requested_days_period(table: Literal['A','C'],
         print("Brak danych")
 
 # 3. do pobrania całej tabeli walut z danego dnia
-
 def get_exchange_rate_for_requested_day(table: Literal["A","B","C"],
                                         date_str: str) -> list[dict] | None:
     """Funkcja generująca kursy walutowe dla wybranego dnia w przeszłości
@@ -124,12 +121,14 @@ def get_exchange_rate_for_requested_day(table: Literal["A","B","C"],
         list[dict] | None: zwraca kursy walutowe dla wybranego dnia w przeszłości
     """
     _validate_table(table, ['A','B','C'])
+    date_dateformat = _validate_date_format(date_str)
+    _validate_weekday(date_dateformat)
+
     url=f'{BASE_URL_EXCHANGE_RATES}/tables/{table}/{date_str}/'
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
         return get_currency_rates(data)
-
 
 # 4. do pobrania całej tabeli walut z przedziału od:do
 def get_exchange_rate_table_for_requested_days_period(table: Literal["A","C"],
@@ -173,3 +172,4 @@ def get_exchange_rate_table_for_requested_days_period(table: Literal["A","C"],
 
 # do zakresów dodać wykresy
 # pydantic - zobaczyć co to jest :)
+
